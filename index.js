@@ -73,15 +73,17 @@ function renderParties() {
 
 async function addParty(event) {
     event.preventDefault();
-
+    
     try {
+        const dateInput = new Date(addPartyForm.date.value);
+        const isoDate = dateInput.toISOString();
         const response = await fetch(API_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 name: addPartyForm.name.value,
                 description: addPartyForm.description.value,
-                date: addPartyForm.date.valueAsDate,
+                date: isoDate,
                 location: addPartyForm.location.value,
             }),
         });
